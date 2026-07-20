@@ -1,59 +1,287 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎉 BDE Events
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based web application that allows the Student Union (BDE) to manage campus events while enabling students to reserve seats and receive a digital event pass.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**BDE Events** is a centralized platform designed to simplify the organization of university events.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The application provides an administration dashboard for the BDE to create and manage events, while students can browse events, reserve a seat, and access their digital tickets from their personal space.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## ✨ Features
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 👨‍💼 Administrator (BDE)
 
-## Laravel Sponsors
+- Secure authentication
+- Admin dashboard
+- Create, update and delete events
+- Monitor event capacity
+- View reservations
+- Manage event information
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 👨‍🎓 Student
 
-### Premium Partners
+- Register and log in
+- Browse available events
+- View event details
+- Reserve a seat
+- Prevent duplicate reservations
+- Access personal digital tickets
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🛠️ Built With
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Laravel 12
+- PHP 8.2+
+- MySQL
+- Blade
+- Bootstrap 5
+- Laravel Breeze
+- Eloquent ORM
+- Git & GitHub
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📂 Project Structure
 
-## Security Vulnerabilities
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/
+│   │   └── ReservationController.php
+│   └── Middleware/
+│       └── IsAdmin.php
+│
+├── Models/
+│   ├── User.php
+│   ├── Event.php
+│   └── Reservation.php
+│
+resources/
+│   └── views/
+│       ├── admin/
+│       ├── student/
+│       └── events/
+│
+routes/
+└── web.php
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 🗄️ Database Schema
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Users
+
+| Column | Type |
+|---------|------|
+| id | bigint |
+| name | string |
+| email | string |
+| password | string |
+| role | enum (`admin`, `student`) |
+
+### Events
+
+| Column | Type |
+|---------|------|
+| id | bigint |
+| title | string |
+| description | text |
+| date | date |
+| time | time |
+| location | string |
+| price | decimal |
+| capacity | integer |
+
+### Reservations
+
+| Column | Type |
+|---------|------|
+| id | bigint |
+| user_id | Foreign Key |
+| event_id | Foreign Key |
+| reservation_code | string |
+
+---
+
+## 🔗 Entity Relationship
+
+```text
+User
+ │
+ │ 1
+ ▼
+Reservation
+ ▲
+ │ *
+ │
+Event
+```
+
+---
+
+## 👥 User Roles
+
+### Admin
+
+- Manage events
+- Access the administration dashboard
+- Monitor reservations
+- Track event capacity
+
+### Student
+
+- Browse events
+- Reserve a seat
+- View personal tickets
+
+---
+
+## 🔒 Security
+
+- Authentication using Laravel Breeze
+- Role-based authorization
+- Custom `IsAdmin` middleware
+- CSRF protection
+- Server-side validation
+- Protected admin routes
+
+---
+
+## 🚀 Installation
+
+Clone the repository
+
+```bash
+git clone <repository-url>
+```
+
+Go to the project directory
+
+```bash
+cd BDE-Events
+```
+
+Install PHP dependencies
+
+```bash
+composer install
+```
+
+Install Node dependencies
+
+```bash
+npm install
+```
+
+Create the environment file
+
+```bash
+cp .env.example .env
+```
+
+Generate the application key
+
+```bash
+php artisan key:generate
+```
+
+Configure your database in the `.env` file.
+
+Run migrations
+
+```bash
+php artisan migrate
+```
+
+Start the development server
+
+```bash
+npm run dev
+
+php artisan serve
+```
+
+---
+
+## 📍 Main Routes
+
+### Public
+
+| Method | Route |
+|---------|-------|
+| GET | / |
+| GET | /events |
+| GET | /events/{event} |
+
+### Student
+
+| Method | Route |
+|---------|-------|
+| GET | /dashboard |
+| POST | /events/{event}/reserve |
+| GET | /my-tickets |
+
+### Admin
+
+| Method | Route |
+|---------|-------|
+| GET | /admin/dashboard |
+| Resource | /admin/events |
+
+---
+
+## 📸 Screenshots
+
+Screenshots will be added after the application is completed.
+
+- Home Page
+- Event Details
+- Admin Dashboard
+- Reservation Page
+- Digital Ticket
+
+---
+
+## 📑 Documentation
+
+The project documentation includes:
+
+- Use Case Diagram
+- UML Class Diagram
+- Entity Relationship Diagram (ERD)
+- Project Presentation
+- GitHub README
+
+---
+
+## 🚧 Future Improvements
+
+- QR Code generation
+- PDF ticket download
+- Email confirmation
+- Event categories
+- Search and filtering
+- Reservation cancellation
+- Event statistics dashboard
+
+---
+
+## 👨‍💻 Author
+
+**Ayoub Sofi**
+
+Full Stack Web Developer
+
+---
+
+## 📄 License
+
+This project was developed for educational purposes.
