@@ -10,33 +10,29 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function showRegistrationForm()
+    public function index()
     {
         if (Auth::check()) {
             return $this->redirectUserBasedOnRole(Auth::user());
         }
-
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-
         $user = User::create([
             'name'     => $validated['name'],
             'email'    => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role'     => 'student',
         ]);
-
         Auth::login($user);
-
-        return redirect()->route('student.dashboard')->with('success', 'Welcome to BDE-Events! Your account has been created.');
+        return redirect()->route('student.dashboard')->with('success', 'Welcome to BDE-Events Your account has been created.');
     }
 
     private function redirectUserBasedOnRole(User $user)

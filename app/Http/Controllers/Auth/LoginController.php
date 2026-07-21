@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
+    public function index()
     {
         if (Auth::check()) {
             return $this->redirectUserBasedOnRole(Auth::user());

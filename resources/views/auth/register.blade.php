@@ -4,24 +4,15 @@
 
 @section('content')
 <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-100 px-4 py-12">
-
     <div class="w-full max-w-md">
-
-        <!-- Register Card -->
         <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8">
-
-            <!-- Header -->
             <div class="text-center mb-8">
-
                 <div class="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white shadow-lg">
-
-                    <!-- User Plus Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-8 h-8"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor">
-
                         <path stroke-linecap="round"
                             stroke-linejoin="round"
                             stroke-width="2"
@@ -39,19 +30,13 @@
                 </p>
 
             </div>
-
-            <!-- Register Form -->
             <form method="POST" action="{{ route('register') }}" class="space-y-5">
                 @csrf
-
-                <!-- Name -->
                 <div>
-
                     <label for="name"
                         class="block mb-2 text-sm font-semibold text-gray-700">
                         Full Name
                     </label>
-
                     <input
                         id="name"
                         type="text"
@@ -67,15 +52,11 @@
                     @enderror
 
                 </div>
-
-                <!-- Email -->
                 <div>
-
                     <label for="email"
                         class="block mb-2 text-sm font-semibold text-gray-700">
                         Campus Email
                     </label>
-
                     <input
                         id="email"
                         type="email"
@@ -84,16 +65,11 @@
                         placeholder="student@campus.edu"
                         required
                         class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none transition @error('email') border-red-500 @enderror">
-
                     @error('email')
                         <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                     @enderror
-
                 </div>
-
-                <!-- Password -->
                 <div>
-
                     <label for="password"
                         class="block mb-2 text-sm font-semibold text-gray-700">
                         Password
@@ -114,17 +90,12 @@
                     @error('password')
                         <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                     @enderror
-
                 </div>
-
-                <!-- Confirm Password -->
                 <div>
-
                     <label for="password_confirmation"
                         class="block mb-2 text-sm font-semibold text-gray-700">
                         Confirm Password
                     </label>
-
                     <input
                         id="password_confirmation"
                         type="password"
@@ -132,41 +103,25 @@
                         placeholder="••••••••"
                         required
                         class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none transition">
-
                 </div>
-
-                <!-- Submit Button -->
                 <button
                     type="submit"
                     class="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-700 hover:shadow-xl">
-
                     Create Account
-
                 </button>
-
             </form>
-
             <!-- Footer -->
             <div class="mt-8 text-center">
 
                 <p class="text-sm text-gray-500">
-
                     Already have an account?
-
                     <a href="{{ route('login') }}"
                         class="font-semibold text-blue-600 hover:text-blue-700">
-
                         Sign In
-
                     </a>
-
                 </p>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 @endsection
