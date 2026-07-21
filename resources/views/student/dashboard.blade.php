@@ -3,6 +3,30 @@
 @section('title', 'Student Dashboard - BDE-Events')
 
 @section('content')
+<form action="{{ route('logout') }}" method="POST">
+    @csrf
+
+    <button
+        type="submit"
+        class="inline-flex items-center gap-2 rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-red-600">
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H9m4 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1"/>
+
+        </svg>
+
+        Logout
+
+    </button>
+</form>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Welcome Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
@@ -96,7 +120,7 @@
 
 
 
-                
+
             </div>
         </div>
     </div>
