@@ -13,7 +13,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events=Event::all();
+         $events = Event::withCount('reservations')->latest('date')->paginate(10);
         return view("admin.events.index",compact('events'));
     }
 
@@ -43,7 +43,7 @@ class EventController extends Controller
         ]);
         Event::create($validated);
          return redirect()
-        ->route('admin.dashboard')
+        ->route('admin.events.index')
         ->with('success', 'Event created successfully!');
     }
 

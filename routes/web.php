@@ -24,6 +24,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('layouts.app');
     })->name('admin.dashboard');
+    Route::get('/events/index',[EventController::class,'index'])->name('admin.events.index');
     Route::get('/events/create',[EventController::class,'create'])->name('admin.events.create');
     Route::post('/events/store',[EventController::class,'store'])->name('admin.events.store');
 
