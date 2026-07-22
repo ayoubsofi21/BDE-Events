@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -23,6 +24,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('layouts.app');
     })->name('admin.dashboard');
+    Route::get('/events/create',[EventController::class,'create'])->name('admin.events.create');
+    Route::post('/events/store',[EventController::class,'store'])->name('admin.events.store');
+
 });
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', function () {
@@ -32,4 +36,5 @@ Route::middleware(['auth', 'role:student'])->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 });

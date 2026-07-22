@@ -14,21 +14,15 @@
 </head>
 <body class="font-sans antialiased text-gray-900 bg-gray-50 flex flex-col min-h-screen">
 
-    <!-- Public Navigation Bar -->
     @include('components.navbar')
-
-    <!-- Flash Alert Messages Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-4">
         @include('components.alert')
     </div>
 
-    <!-- Main Content Area -->
     <main class="flex-grow">
         {{ $slot ?? '' }}
         @yield('content')
     </main>
-
-    <!-- Public Footer -->
     @include('components.footer')
 
 </body>

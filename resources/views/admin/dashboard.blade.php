@@ -13,7 +13,7 @@
         <div class="flex gap-4">
         <div>
             {{-- {{ route('admin.events.create') }} --}}
-            <a href="#" class="inline-flex items-center justify-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg shadow-sm transition-colors duration-200">
+            <a href="{{route('admin.events.create')}}" class="inline-flex items-center justify-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg shadow-sm transition-colors duration-200">
                 <i class="bi bi-plus-lg mr-2"></i> Create New Event
             </a>
         </div>
