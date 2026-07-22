@@ -1,8 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Manage Events - BDE-Events')
+{{-- @section('title', 'Manage Events - BDE-Events') --}}
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Top Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
             <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">Event Management</h2>
@@ -80,12 +79,10 @@
                                 </td>
                                 <td class="py-4 px-6 text-right whitespace-nowrap">
                                     <div class="flex items-center justify-end gap-2">
-                                        {{-- {{ route('admin.events.edit', $event->id) }} --}}
-                                        <a href="#" class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                        <a href="{{route('admin.events.edit',$event->id)}}" class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                                             <i class="bi bi-pencil-square text-lg"></i>
                                         </a>
-                                        {{-- {{ route('admin.events.destroy', $event->id) }} --}}
-                                        <form action="#" method="POST" onsubmit="return confirm('Are you sure you want to delete this event?');" class="inline">
+                                        <form action="{{route('admin.events.destroy',$event->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this event?');" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
