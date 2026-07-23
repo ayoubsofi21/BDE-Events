@@ -50,7 +50,7 @@
 </section>
 
 <!-- Upcoming Events Teaser -->
-<section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="allEvent" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
         <div>
             <h2 class="text-3xl font-bold text-gray-900">Featured Campus Events</h2>
@@ -63,94 +63,77 @@
 
     <!-- Event Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- Single Event Card 1 -->
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
-            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800" alt="Tech Conference" class="h-48 w-full object-cover">
-            <div class="p-6 flex flex-col flex-grow">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Conference</span>
-                    <span class="text-xs font-medium text-emerald-500 font-semibold">45 seats left</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">ENAA Tech Summit 2026</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">Annual technology conference featuring industry experts and innovation showcases.</p>
-                
-                <div class="space-y-2 mb-6 text-sm text-gray-600">
-                    <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>Oct 15, 2026 • 14:00</span>
+        @foreach($events as $event)
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+
+                <img src="{{ $event->image_url ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800' }}"
+                    alt="{{ $event->title }}"
+                    class="h-48 w-full object-cover">
+
+                <div class="p-6 flex flex-col flex-grow">
+
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">
+                            {{ $event->category->name ?? 'Event' }}
+                        </span>
+
+                        <span class="text-xs font-medium text-emerald-500">
+                            {{ $event->available_seats }} seats left
+                        </span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span>Main Auditorium</span>
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">
+                        <a href="#">{{ $event->title }}</a>
+                    </h3>
+
+                    <p class="text-gray-600 text-sm mb-4">
+                        {{ $event->description }}
+                    </p>
+
+                    <div class="space-y-2 mb-6 text-sm text-gray-600">
+                        <div class="flex items-center gap-2">
+                            <span>{{ \Carbon\Carbon::parse($event->date)->format('M d, Y • H:i') }}</span>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span>{{ $event->location }}</span>
+                        </div>
                     </div>
+
+                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
+                        <span class="text-xl font-bold">
+                            {{ $event->price > 0 ? $event->price . ' DH' : 'Free' }}
+                        </span>
+
+                        {{-- <a href="{{ route('rederect.login', $event->id) }}" class="px-4 py-2 bg-blue-600 text-white rounded-xl">
+                            Reserve Seat
+                        </a> --}}
+                        @auth
+                            <form action="{{ route('registrations.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="event_id" value="{{ $event->id }}">
+                                @if($event->available_seats > 0)
+                                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm transition-colors">
+                                        Réserver
+                                    </button>
+                                @else
+                                    <button type="button" disabled class="px-4 py-2 bg-gray-300 text-gray-500 font-medium rounded-xl text-sm cursor-not-allowed">
+                                        Complet
+                                    </button>
+                                @endif
+                            </form>
+                        @endauth
+                        @guest
+                            <a href="{{ route('login') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm transition-colors">
+                                Réserver
+                            </a>
+                        @endguest
+                    </div>
+
                 </div>
 
-                <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
-                    <span class="text-xl font-bold text-gray-900">Free</span>
-                    <a href="/events/1" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-md transition-all duration-300">Reserve Seat</a>
-                </div>
             </div>
-        </div>
-
-        <!-- Single Event Card 2 -->
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
-            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800" alt="Gala Night" class="h-48 w-full object-cover">
-            <div class="p-6 flex flex-col flex-grow">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full">Social</span>
-                    <span class="text-xs font-medium text-amber-500 font-semibold">12 seats left</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Annual Welcome Gala</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">Celebratory dinner and party welcoming incoming students to ENAA campus.</p>
-                
-                <div class="space-y-2 mb-6 text-sm text-gray-600">
-                    <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>Nov 02, 2026 • 20:00</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span>Campus Grand Hall</span>
-                    </div>
-                </div>
-
-                <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
-                    <span class="text-xl font-bold text-gray-900">50 DH</span>
-                    <a href="/events/2" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-md transition-all duration-300">Reserve Seat</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Single Event Card 3 -->
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
-            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800" alt="E-Sports Tournament" class="h-48 w-full object-cover">
-            <div class="p-6 flex flex-col flex-grow">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full">Sports</span>
-                    <span class="text-xs font-medium text-emerald-500 font-semibold">80 seats left</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Inter-Campus E-Sports Cup</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">Competitive gaming tournament across Valorant and FIFA with cash prizes.</p>
-                
-                <div class="space-y-2 mb-6 text-sm text-gray-600">
-                    <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>Nov 18, 2026 • 10:00</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span>Student Lounge</span>
-                    </div>
-                </div>
-
-                <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
-                    <span class="text-xl font-bold text-gray-900">20 DH</span>
-                    <a href="/events/3" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-md transition-all duration-300">Reserve Seat</a>
-                </div>
-            </div>
-        </div>
-
+        @endforeach
     </div>
 </section>
 
