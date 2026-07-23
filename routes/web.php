@@ -43,3 +43,4 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 });
+    Route::get('/events/{event}',[EventController::class,'show'])->name('events.show');

@@ -28,9 +28,11 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,Event $event)
     {
-       
+    //    if ($request->hasFile('image')) {    
+    //         $event->image = $request->file('image')->store('events', 'public');
+    //     }
         $validated=$request->validate([
            'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -51,9 +53,9 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Event $event)
     {
-        //
+        return view('admin.events.show',compact('event'));
     }
 
     /**

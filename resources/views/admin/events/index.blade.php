@@ -79,6 +79,11 @@
                                 </td>
                                 <td class="py-4 px-6 text-right whitespace-nowrap">
                                     <div class="flex items-center justify-end gap-2">
+                                        <a href="{{ route('events.show', $event->id) }}" 
+                                            class="p-2 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors" 
+                                            title="View Details">
+                                                <i class="bi bi-eye text-lg"></i>
+                                        </a>
                                         <a href="{{route('admin.events.edit',$event->id)}}" class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                                             <i class="bi bi-pencil-square text-lg"></i>
                                         </a>
