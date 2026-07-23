@@ -79,35 +79,35 @@ routes/
 
 ### Users
 
-| Column | Type |
-|---------|------|
-| id | bigint |
-| name | string |
-| email | string |
-| password | string |
-| role | enum (`admin`, `student`) |
+| Column   | Type                      |
+| -------- | ------------------------- |
+| id       | bigint                    |
+| name     | string                    |
+| email    | string                    |
+| password | string                    |
+| role     | enum (`admin`, `student`) |
 
 ### Events
 
-| Column | Type |
-|---------|------|
-| id | bigint |
-| title | string |
-| description | text |
-| date | date |
-| time | time |
-| location | string |
-| price | decimal |
-| capacity | integer |
+| Column      | Type    |
+| ----------- | ------- |
+| id          | bigint  |
+| title       | string  |
+| description | text    |
+| date        | date    |
+| time        | time    |
+| location    | string  |
+| price       | decimal |
+| capacity    | integer |
 
 ### Reservations
 
-| Column | Type |
-|---------|------|
-| id | bigint |
-| user_id | Foreign Key |
-| event_id | Foreign Key |
-| reservation_code | string |
+| Column           | Type        |
+| ---------------- | ----------- |
+| id               | bigint      |
+| user_id          | Foreign Key |
+| event_id         | Foreign Key |
+| reservation_code | string      |
 
 ---
 
@@ -215,26 +215,26 @@ php artisan serve
 
 ### Public
 
-| Method | Route |
-|---------|-------|
-| GET | / |
-| GET | /events |
-| GET | /events/{event} |
+| Method | Route           |
+| ------ | --------------- |
+| GET    | /               |
+| GET    | /events         |
+| GET    | /events/{event} |
 
 ### Student
 
-| Method | Route |
-|---------|-------|
-| GET | /dashboard |
-| POST | /events/{event}/reserve |
-| GET | /my-tickets |
+| Method | Route                   |
+| ------ | ----------------------- |
+| GET    | /dashboard              |
+| POST   | /events/{event}/reserve |
+| GET    | /my-tickets             |
 
 ### Admin
 
-| Method | Route |
-|---------|-------|
-| GET | /admin/dashboard |
-| Resource | /admin/events |
+| Method   | Route            |
+| -------- | ---------------- |
+| GET      | /admin/dashboard |
+| Resource | /admin/events    |
 
 ---
 
@@ -285,3 +285,7 @@ Full Stack Web Developer
 ## 📄 License
 
 This project was developed for educational purposes.
+
+## all diagram
+
+![alt text](class_diagram.png) ![alt text](ERD.png) ![alt text](use_Case_Diagram.png)
