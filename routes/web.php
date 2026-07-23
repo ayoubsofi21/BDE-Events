@@ -27,8 +27,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/events/index',[EventController::class,'index'])->name('admin.events.index');
     Route::get('/events/create',[EventController::class,'create'])->name('admin.events.create');
     Route::post('/events/store',[EventController::class,'store'])->name('admin.events.store');
-    Route::post('/events/edit/{id}',[EventController::class,'update'])->name('admin.events.edit');
     Route::delete('/events/destroy/{id}',[EventController::class,'destroy'])->name('admin.events.destroy');
+    Route::get('/events/edit/{event}',[EventController::class,'edit'])->name('admin.events.edit');
+    Route::put('/events/update/{event}',[EventController::class,'update'])->name('admin.events.update');
+    
 
 });
 Route::middleware(['auth', 'role:student'])->group(function () {

@@ -59,17 +59,30 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Event $event)
     {
-        //
+        // $event=Event::findOrFail($event);
+        return view('admin.events.edit',compact('event'));
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Event $event)
     {
-        //
+        $validated=$request->validate([
+            'title'       => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'date'        => ['required', 'date'],
+            'time'        => ['required'],
+            'location'    => ['required', 'string', 'max:255'],
+            'price'       => ['required', 'numeric', 'min:0'],
+            'capacity'    => ['required', 'integer', 'min:1'],
+            'image'       => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+        ]);
+        $event->update($validated);
+        return redirect()->route('admin.events.index')->with('success',"event updated with successfull");
     }
 
     /**
