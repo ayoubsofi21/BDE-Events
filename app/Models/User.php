@@ -52,7 +52,10 @@ class User extends Authenticatable
     {
         return $table = $this->hasMany(Reservation::class);
     }
-
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
     /**
      * Check if user is an admin.
      */
