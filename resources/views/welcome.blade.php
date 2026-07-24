@@ -109,7 +109,7 @@
                             Reserve Seat
                         </a> --}}
                         @auth
-                            <form action="{{ route('registrations.store') }}" method="POST">
+                            <form action="#" method="POST">
                                 @csrf
                                 <input type="hidden" name="event_id" value="{{ $event->id }}">
                                 @if($event->available_seats > 0)

@@ -80,8 +80,7 @@
                 @enderror
             </div>
             <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-                {{-- {{ route('admin.events.index') }} --}}
-                <a href="#" class="px-5 py-2.5 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 font-semibold text-sm rounded-xl transition-all">
+                <a href="{{ route('admin.events.index') }}" class="px-5 py-2.5 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 font-semibold text-sm rounded-xl transition-all">
                     Cancel
                 </a>
                 <button type="submit" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all">
