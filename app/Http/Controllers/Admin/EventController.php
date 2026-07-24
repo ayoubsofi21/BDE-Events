@@ -28,25 +28,46 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,Event $event)
+    // public function store(Request $request,Event $event)
+    // {
+    // //    if ($request->hasFile('image')) {    
+    // //         $event->image = $request->file('image')->store('events', 'public');
+    // //     }
+    //     $validated=$request->validate([
+    //        'title' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'date' => 'required|date',
+    //         'time' => 'required',
+    //         'price' => 'required|numeric|min:0',
+    //         'location' => 'required|string|max:255',
+    //         'capacity' => 'required|integer|min:1',
+    //         'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    //     ]);
+    //     Event::create($validated);
+    //      return redirect()
+    //     ->route('admin.events.index')
+    //     ->with('success', 'Event created successfully!');
+    // }
+    public function store(Request $request)
     {
-    //    if ($request->hasFile('image')) {    
-    //         $event->image = $request->file('image')->store('events', 'public');
-    //     }
-        $validated=$request->validate([
-           'title' => 'required|string|max:255',
+        $validated = $request->validate([
+            'title'       => 'required|string|max:255',
             'description' => 'required|string',
-            'date' => 'required|date',
-            'time' => 'required',
-            'price' => 'required|numeric|min:0',
-            'location' => 'required|string|max:255',
-            'capacity' => 'required|integer|min:1',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'date'        => 'required|date',
+            'time'        => 'required',
+            'price'       => 'required|numeric|min:0',
+            'location'    => 'required|string|max:255',
+            'capacity'    => 'required|integer|min:1',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('events', 'public');
+        }
+
         Event::create($validated);
-         return redirect()
-        ->route('admin.events.index')
-        ->with('success', 'Event created successfully!');
+
+        return redirect()->route('admin.events.index')->with('success', 'Event created successfully!');
     }
 
 
