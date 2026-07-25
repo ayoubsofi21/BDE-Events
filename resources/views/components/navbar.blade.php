@@ -20,29 +20,45 @@
             </div>
 
             <div class="hidden md:flex md:items-center md:space-x-4">
-                <a href="/login" class="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-blue-600 transition-all duration-300">Sign In</a>
-                <a href="/register" class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">Get Tickets</a>
-         @auth
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button
-                    type="submit"
-                    class="inline-flex items-center gap-2 rounded-xl bg-red-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-red-600">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-5 h-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H9m4 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1"/>
-                    </svg>
-                    Logout
-                </button>
-            </form>
-          @endauth
-            </div>
+
+                    @guest
+                        <a href="{{ route('login') }}"
+                            class="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-blue-600">
+                            Sign In
+                        </a>
+
+                        <a href="{{ route('register') }}"
+                            class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-xl">
+                            Get Tickets
+                        </a>
+                    @endguest
+
+                    @auth
+
+                        {{-- Dashboard selon le rôle --}}
+                        @if(auth()->user()->role == 'admin')
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="px-4 py-2 text-sm font-semibold text-blue-600">
+                                Dashboard
+                            </a>
+                        @elseif(auth()->user()->role == 'student')
+                            <a href="{{ route('student.dashboard') }}"
+                                class="px-4 py-2 text-sm font-semibold text-blue-600">
+                                Dashboard
+                            </a>
+                        @endif
+
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded-xl">
+                                Logout
+                            </button>
+                        </form>
+
+                    @endauth
+
+                </div>
                
 
             <!-- Mobile Hamburger Button -->
