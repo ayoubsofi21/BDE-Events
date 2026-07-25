@@ -66,7 +66,7 @@
         @foreach($events as $event)
             <div class="bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
 
-                <img src="{{ $event->image_url ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800' }}"
+                <img src="{{ $event->image ? asset('storage/'.$event->image ) : 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800' }}"
                     alt="{{ $event->title }}"
                     class="h-48 w-full object-cover">
 
