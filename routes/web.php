@@ -10,13 +10,11 @@ use App\Http\Controllers\Student\StudentDashboardController;
 use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 
-// Page d'accueil public
 Route::get('/', function () {
     $events = Event::with('reservations')->latest()->get();
     return view('welcome', compact('events'));
 })->name('home');
 
-// Authentification (Invités)
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'store']);
@@ -24,10 +22,8 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login']);
 });
 
-// Déconnexion (Utilisateurs connectés)
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
-// Espace Admin
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('events', EventController::class);
@@ -42,7 +38,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 });
 
-// Espace Étudiant / Réservations
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
     Route::get('/events/{event}', [ReservationController::class, 'show'])->name('events.show');

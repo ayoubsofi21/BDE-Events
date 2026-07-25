@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Student;
-
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Reservation;
@@ -14,7 +13,6 @@ class StudentDashboardController extends Controller
     {
         $userId = Auth::id();
 
-        // Statistiques
         $myReservationsCount = Reservation::where('user_id', $userId)->count();
         
         $myTickets = Ticket::with(['reservation.event'])
@@ -31,7 +29,6 @@ class StudentDashboardController extends Controller
             return $ticket->reservation->event->price;
         });
 
-        // Événements recommandés (les événements à venir)
         $recommendedEvents = Event::where('date', '>=', now()->toDateString())
             ->orderBy('date', 'asc')
             ->take(4)
