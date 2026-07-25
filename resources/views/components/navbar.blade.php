@@ -15,7 +15,7 @@
                 <!-- Desktop Navigation Links -->
                 <div class="hidden md:flex md:ml-10 md:space-x-8">
                     <a href="/" class="text-gray-900 hover:text-blue-600 font-semibold text-sm inline-flex items-center px-1 pt-1 border-b-2 border-blue-600">Home</a>
-                    <a href="/events" class="text-gray-600 hover:text-blue-600 font-medium text-sm inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-blue-600 transition-all duration-300">All Events</a>
+                    <a href="#allEvent" class="text-gray-600 hover:text-blue-600 font-medium text-sm inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-blue-600 transition-all duration-300">All Events</a>
                 </div>
             </div>
 

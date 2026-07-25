@@ -35,16 +35,10 @@ class EventController extends Controller
         ]);
 
        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('events', 'public');
-        } else {
-            $path = null;
+            $validated['image'] = $request->file('image')->store('events', 'public');
         }
 
-        Event::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $path,
-        ]);
+        Event::create($validated);
 
         return redirect()->route('admin.events.index')->with('success', 'Event created successfully!');
     }

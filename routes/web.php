@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome', compact('events'));
 })->name('home');
 
+
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'store']);
