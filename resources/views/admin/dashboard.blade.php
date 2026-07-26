@@ -5,6 +5,7 @@
     <!-- Header Section -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
+           <h1 class="text-2xl sm:text-3xl font-bold text-gray-500 tracking-tight"><a href="{{route('admin.profile')}}">Profile</a></h1>
             <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">Admin Dashboard</h2>
             <p class="text-sm text-gray-500 mt-1">Overview of campus ticketing and BDE event metrics.</p>
         </div>

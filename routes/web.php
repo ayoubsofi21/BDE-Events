@@ -36,8 +36,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Route::get('/events/edit/{event}',[EventController::class,'edit'])->name('admin.events.edit');
     // Route::put('/events/update/{event}',[EventController::class,'update'])->name('admin.events.update');
     // Route::get('/events/{event}',[EventController::class,'show'])->name('events.show');
-
-});
+    
+    Route::get('/admin/profile', [ProfileController::class, 'profile'])->name("profile");
+    
+    });
 
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
