@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Student Dashboard - BDE-Events')
-
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
             <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
@@ -17,8 +15,6 @@
             </a>
         </div>
     </div>
-
-    <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div class="flex items-center justify-between">
@@ -31,7 +27,6 @@
                 </div>
             </div>
         </div>
-
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
@@ -43,7 +38,6 @@
                 </div>
             </div>
         </div>
-
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
@@ -56,8 +50,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Main Content Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- My Passes -->
         <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
@@ -65,7 +57,6 @@
                 <h3 class="text-lg font-bold text-gray-900">My Recent Passes</h3>
                 <a href="{{ route('tickets.index') }}" class="text-sm font-semibold text-blue-600 hover:text-blue-700">View All Passes</a>
             </div>
-
             @if($myTickets->isEmpty())
                 <p class="text-gray-500 text-center py-8">No tickets reserved yet.</p>
             @else
@@ -82,14 +73,11 @@
                 </div>
             @endif
         </div>
-
-        <!-- Recommended Events -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-bold text-gray-900">Recommended Events</h3>
                 <a href="{{ route('home') }}" class="text-sm font-semibold text-blue-600 hover:text-blue-700">All Events</a>
             </div>
-
             <div class="space-y-4">
                 @foreach($recommendedEvents as $event)
                     <div class="p-3 bg-gray-50 rounded-xl border border-gray-100 flex flex-col justify-between">

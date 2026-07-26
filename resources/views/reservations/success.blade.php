@@ -9,7 +9,6 @@
             <span class="font-bold text-indigo-600">OFFICIAL BDE TICKET</span>
             <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600 font-mono">{{ $ticket->ticket_number }}</span>
         </div>
-
         <div class="space-y-2 text-sm text-slate-700">
             <p><strong>Attendee:</strong> {{ auth()->user()->name }} ({{ auth()->user()->email }})</p>
             <p><strong>Event:</strong> {{ $event->title }}</p>

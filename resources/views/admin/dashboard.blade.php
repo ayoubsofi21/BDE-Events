@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', 'Admin Dashboard - BDE-Events')
-
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Header Section -->
@@ -19,10 +17,7 @@
         </div>
         </div>
     </div>
-
-    <!-- Statistics Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <!-- Total Events -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all hover:shadow-md">
             <div class="flex items-center justify-between">
                 <div>
@@ -34,8 +29,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Total Bookings -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all hover:shadow-md">
             <div class="flex items-center justify-between">
                 <div>
@@ -47,8 +40,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Active Students -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all hover:shadow-md">
             <div class="flex items-center justify-between">
                 <div>
@@ -61,17 +52,13 @@
             </div>
         </div>
     </div>
-
-    <!-- Data Tables Row -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Upcoming Events -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between h-full">
             <div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-bold text-gray-900">Upcoming Events</h3>
                          <a href="{{ route('admin.events.index') }}" class="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">View All</a>
                 </div>
-
                 @if($upcomingEvents->isEmpty())
                     <p class="text-gray-500 text-center py-8">No upcoming events scheduled.</p>
                 @else
@@ -112,8 +99,6 @@
                 @endif
             </div>
         </div>
-
-        <!-- Recent Reservations -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between h-full">
             <div>
                 <div class="flex items-center justify-between mb-4">

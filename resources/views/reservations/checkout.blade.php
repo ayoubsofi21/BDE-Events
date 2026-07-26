@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="max-w-md mx-auto bg-white border rounded-xl p-6 shadow-sm mt-8">
     <h2 class="text-2xl font-bold text-slate-800 mb-4 border-b pb-2">Simulated Checkout</h2>

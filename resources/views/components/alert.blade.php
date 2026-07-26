@@ -1,4 +1,3 @@
-<!-- Success / Error Alert Component -->
 @if (session('success'))
     <div class="mb-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between shadow-md">
         <div class="flex items-center gap-3">

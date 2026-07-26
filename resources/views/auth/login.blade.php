@@ -7,14 +7,11 @@
 
     <div class="w-full max-w-md">
 
-        <!-- Card -->
         <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8">
 
-            <!-- Header -->
             <div class="text-center mb-8">
 
                 <div class="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white shadow-lg">
-                    <!-- Login Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-8 h-8"
                         fill="none"
@@ -38,11 +35,9 @@
 
             </div>
 
-            <!-- Form -->
             <form method="POST" action="#" class="space-y-6">
                 @csrf
 
-                <!-- Email -->
                 <div>
 
                     <label for="email"
@@ -54,7 +49,6 @@
 
                         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
 
-                            <!-- Mail Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="w-5 h-5"
                                 fill="none"
@@ -89,7 +83,6 @@
 
                 </div>
 
-                <!-- Password -->
                 <div>
 
                     <label for="password"
@@ -155,38 +148,22 @@
 
                 </div>
 
-                <!-- Button -->
                 <button
                     type="submit"
                     class="w-full rounded-xl bg-blue-600 py-3 text-white font-semibold hover:bg-blue-700 transition duration-300 shadow-lg">
-
                     Sign In
-
                 </button>
-
             </form>
-
-            <!-- Footer -->
             <div class="mt-8 text-center">
-
                 <p class="text-sm text-gray-500">
-
                     Don't have an account?
-
                     <a href="/register"
                         class="font-semibold text-blue-600 hover:text-blue-700">
-
                         Create one
-
                     </a>
-
                 </p>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 @endsection
