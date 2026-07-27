@@ -35,10 +35,10 @@ class RegisterController extends Controller
         return redirect()->route('student.dashboard')->with('success', 'Welcome to BDE-Events Your account has been created.');
     }
 
-    private function redirectUserBasedOnRole(User $user)
-    {
-        return $user->role === 'admin'
-            ? redirect()->route('admin.dashboard')
-            : redirect()->route('student.dashboard');
-    }
+    // private function redirectUserBasedOnRole(User $user)
+    // {
+    //     return $user->role === 'admin'
+    //         ? redirect()->route('admin.dashboard')
+    //         : redirect()->route('student.dashboard');
+    // }
 }
