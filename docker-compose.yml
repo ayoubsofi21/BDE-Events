@@ -1,42 +1,35 @@
-version: "3.8"
-
 services:
-  web:
-    build: .
-    container_name: php_app
-    ports:
-      
-"8080:80"
-  volumes:
-.:/var/www/html
-depends_on:
-db
 
-  db:
-    image: mysql:8.0
-    container_name: mysql_db
-    restart: always
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bde-events-api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: BDE_events
-    ports:
-      
-"3306:3306"
-  volumes:
-db_data:/var/lib/mysql
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: BDE_events
+      DB_USERNAME: bde_user
+      DB_PASSWORD: bde_password
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    restart: always
+  mysql:
+    image: mysql:8.0
+    container_name: bde-events-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: BDE_events
+      MYSQL_USER: bde_user
+      MYSQL_PASSWORD: bde_password
+      MYSQL_ROOT_PASSWORD: root_password
     ports:
-      
-"8081:80"
-  environment:
-    PMA_HOST: db
-    MYSQL_ROOT_PASSWORD: rootpassword
-  depends_on:
-db
+      - "3306:3306"
+    volumes:
+      - bde_events_mysql_data:/var/lib/mysql
 
 volumes:
-  db_data:
+  bde_events_mysql_data:
