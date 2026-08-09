@@ -6,16 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -23,21 +19,11 @@ class User extends Authenticatable
         'role',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -45,28 +31,21 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Relationship: A user can have many reservations.
-     */
     public function reservations(): HasMany
     {
-        return $table = $this->hasMany(Reservation::class);
+        return $this->hasMany(Reservation::class);
     }
+
     public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
     }
-    /**
-     * Check if user is an admin.
-     */
+
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
 
-    /**
-     * Check if user is a student.
-     */
     public function isStudent(): bool
     {
         return $this->role === 'student';
