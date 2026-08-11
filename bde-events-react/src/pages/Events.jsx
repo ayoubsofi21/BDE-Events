@@ -52,22 +52,11 @@ function Events() {
         <div className="bg-gray-50 min-h-screen">
 
             {/* Header */}
-            <section className="bg-white border-b">
+            <section className="bg-white ">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-                    <p className="text-blue-600 font-semibold">
-                        BDE-Events
-                    </p>
-
                     <h1 className="mt-2 text-4xl font-bold text-gray-900">
                         Découvrez les événements
                     </h1>
-
-                    <p className="mt-4 text-gray-600 text-lg max-w-2xl">
-                        Retrouvez tous les événements organisés sur le campus
-                        et réservez votre place.
-                    </p>
-
                 </div>
             </section>
 
