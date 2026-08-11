@@ -95,8 +95,8 @@ function EventDetails() {
                         <div className="h-64 md:h-80 bg-blue-100 flex items-center justify-center">
 
                             {event.image ? (
-                                <img
-                                    src={event.image}
+                              <img
+                                    src={`http://localhost:8000/storage/${event.image}`}
                                     alt={event.title}
                                     className="w-full h-full object-cover"
                                 />

@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import EventCard from "../components/EventCard";
-
 function Events() {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
     useEffect(() => {
         const getEvents = async () => {
             try {
                 const response = await api.get("/events");
-
                 console.log("API response:", response.data);
-
                 setEvents(response.data.data);
             } catch (error) {
                 console.error("Erreur API:", error);
@@ -22,7 +18,6 @@ function Events() {
                 setLoading(false);
             }
         };
-
         getEvents();
     }, []);
 
@@ -50,8 +45,6 @@ function Events() {
 
     return (
         <div className="bg-gray-50 min-h-screen">
-
-            {/* Header */}
             <section className="bg-white ">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <h1 className="mt-2 text-4xl font-bold text-gray-900">
@@ -59,9 +52,6 @@ function Events() {
                     </h1>
                 </div>
             </section>
-
-
-            {/* Events */}
             <section className="py-12">
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
