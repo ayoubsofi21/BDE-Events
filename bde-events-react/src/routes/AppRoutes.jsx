@@ -9,6 +9,7 @@ import Profile from "../pages/profile/Profile";
 import MyTickets from "../pages/profile/MyTickets";
 import Dashboard from "../pages/admin/Dashboard";
 import EventsManagement from "../pages/admin/EventsManagement";
+import CreateEvent from "../pages/admin/CreateEvent";
  function AppRoutes(){
     return(
             <Routes>
@@ -20,7 +21,8 @@ import EventsManagement from "../pages/admin/EventsManagement";
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/profile/tickets" element={<MyTickets />} />
                 <Route path="/admin/dashboard" element={<Dashboard />} />
-                `<Route path="/admin/events" element={<EventsManagement />} />`
+                <Route path="/admin/events" element={<EventsManagement />} />
+                <Route path="/admin/events/create" element={<CreateEvent />} />
             </Routes>
     )
 }
