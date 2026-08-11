@@ -10,10 +10,19 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
-    )->withMiddleware(function (Middleware $middleware): void {
-    $middleware->alias([
-        'isAdmin' => \App\Http\Middleware\IsAdmin::class,
-    ]);
-    })->withExceptions(function (Exceptions $exceptions) {
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
+
+        $middleware->alias([
+            'isAdmin' => \App\Http\Middleware\IsAdmin::class,
+        ]);
+
+        $middleware->append(
+            \Illuminate\Http\Middleware\HandleCors::class
+        );
+
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create();
+    })
+    ->create();

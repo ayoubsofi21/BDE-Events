@@ -1,6 +1,6 @@
 services:
-
   api:
+    image: bde-events-api
     build:
       context: .
       dockerfile: Dockerfile
@@ -30,6 +30,18 @@ services:
       - "3306:3306"
     volumes:
       - bde_events_mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: bde-events-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      - mysql
 
 volumes:
   bde_events_mysql_data:
