@@ -17,6 +17,7 @@ function Navbar() {
 
                     {/* Navigation */}
                     <div className="flex items-center gap-6">
+
                         <Link
                             to="/"
                             className="text-gray-700 hover:text-blue-600 font-medium transition"
@@ -44,8 +45,8 @@ function Navbar() {
                         >
                             Register
                         </Link>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </nav>
