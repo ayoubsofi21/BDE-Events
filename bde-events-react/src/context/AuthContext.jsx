@@ -1,65 +1,56 @@
 import { createContext, useState } from "react";
 import api from "../services/api";
+export const AuthContext = createContext();
+function AuthContextProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const login = async (email, password) => {
+    const response = await api.post("/login", {
+      email,
+      password,
+    });
+    const user = response.data.data.user;
+    const token = response.data.data.token;
 
-const AuthContext = createContext();
+    localStorage.setItem("token", token);
 
-export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
+    setUser(user);
+    setToken(token);
+  };
 
-    const login = async (email, password) => {
-        const response = await api.post("/login", {
-            email,
-            password,
-        });
+  const logout = async () => {
+    try {
+      await api.post(
+        "/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+    } catch (error) {
+      console.error("Erreur logout :", error);
+    }
 
-        const newToken = response.data.token;
+    localStorage.removeItem("token");
 
-        setToken(newToken);
+    setToken(null);
+    setUser(null);
+  };
 
-        api.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
-
-        const userResponse = await api.get("/me");
-
-        setUser(userResponse.data);
-
-        return userResponse.data;
-    };
-
-    const register = async (name, email, password, password_confirmation) => {
-        const response = await api.post("/register", {
-            name,
-            email,
-            password,
-            password_confirmation,
-        });
-
-        return response.data;
-    };
-
-    const logout = async () => {
-        await api.post("/logout");
-
-        setUser(null);
-        setToken(null);
-
-        delete api.defaults.headers.common["Authorization"];
-    };
-
-    const value = {
+  return (
+    <AuthContext.Provider
+      value={{
         user,
         token,
-        isAuthenticated: !!token,
         login,
-        register,
         logout,
-    };
-
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
-export default AuthContext;
+export default AuthContextProvider;
