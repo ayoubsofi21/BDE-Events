@@ -1,8 +1,9 @@
 services:
+
   api:
     image: bde-events-api
     build:
-      context: .
+      context: ./bde-events-api
       dockerfile: Dockerfile
     container_name: bde-events-api
     ports:
@@ -42,6 +43,17 @@ services:
       PMA_PORT: 3306
     depends_on:
       - mysql
+
+  frontend:
+    image: bde-events-react
+    build:
+      context: ./bde-events-react
+      dockerfile: Dockerfile
+    container_name: bde-events-react
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
 
 volumes:
   bde_events_mysql_data:
