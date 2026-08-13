@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../services/api";
 
 function CreateEvent() {
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -22,10 +26,53 @@ function CreateEvent() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError(null);
+        try {
 
-        console.log("Form data:", formData);
+            const token = localStorage.getItem("token");
+
+            const response = await api.post(
+                "/admin/events",
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            console.log("Create event response:", response.data);
+
+            navigate("/admin/events");
+
+        } catch (error) {
+
+            console.error("Create event error:", error);
+
+            if (error.response?.status === 422) {
+
+                setError("Veuillez vérifier les informations saisies.");
+
+            } else if (error.response?.status === 403) {
+
+                setError("Vous n'avez pas l'autorisation de créer un événement.");
+
+            } else if (error.response?.status === 401) {
+
+                setError("Votre session a expiré. Veuillez vous reconnecter.");
+
+            } else {
+
+                setError("Une erreur est survenue lors de la création.");
+            }
+
+        } finally {
+
+            setLoading(false);
+        }
     };
 
     return (
@@ -58,6 +105,11 @@ function CreateEvent() {
             <main className="py-10">
 
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {error && (
+                            <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-lg">
+                                {error}
+                            </div>
+                        )}
 
                     <form
                         onSubmit={handleSubmit}
@@ -311,12 +363,13 @@ function CreateEvent() {
                                 Annuler
                             </Link>
 
-                            <button
-                                type="submit"
-                                className="px-5 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
-                            >
-                                Créer l'événement
-                            </button>
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="px-5 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+                        >
+                            {loading ? "Création..." : "Créer l'événement"}
+                        </button>
 
                         </div>
 
