@@ -1,5 +1,4 @@
 services:
-
   api:
     image: bde-events-api
     build:
@@ -37,7 +36,7 @@ services:
     container_name: bde-events-phpmyadmin
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "8090:80"
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
@@ -51,7 +50,7 @@ services:
       dockerfile: Dockerfile
     container_name: bde-events-react
     ports:
-      - "5173:80"
+      - "8080:80"
     depends_on:
       - api
 
