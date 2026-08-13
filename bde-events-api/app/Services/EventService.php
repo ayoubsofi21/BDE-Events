@@ -32,6 +32,7 @@ class EventService
 
         return Event::create($data);
     }
+
     public function update(
         Event $event,
         array $data,

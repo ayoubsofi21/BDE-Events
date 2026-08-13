@@ -3,47 +3,45 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class AuthApiController extends Controller
 {
-    /**
-     * Register a new student.
-     */
+    public function __construct(
+        private AuthService $authService
+    ) {
+    }
+    
     public function register(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users,email'
+            ],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed'
+            ],
         ]);
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => 'student',
-        ]);
-
-        $token = $user->createToken('bde-events-api')->plainTextToken;
+        $result = $this->authService->register($validated);
 
         return response()->json([
             'success' => true,
             'message' => 'Account created successfully.',
-            'data' => [
-                'user' => $user,
-                'token' => $token,
-            ],
+            'data' => $result,
         ], 201);
     }
 
-    /**
-     * Login an existing user.
-     */
     public function login(Request $request): JsonResponse
     {
         $credentials = $request->validate([
@@ -51,35 +49,19 @@ class AuthApiController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $user = User::where('email', $credentials['email'])->first();
-
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
-        }
-
-        // Remove previous tokens.
-        $user->tokens()->delete();
-
-        $token = $user->createToken('bde-events-api')->plainTextToken;
+        $result = $this->authService->login($credentials);
 
         return response()->json([
             'success' => true,
             'message' => 'Login successful.',
-            'data' => [
-                'user' => $user,
-                'token' => $token,
-            ],
+            'data' => $result,
         ]);
     }
-
-    /**
-     * Logout the current user.
-     */
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $this->authService->logout(
+            $request->user()
+        );
 
         return response()->json([
             'success' => true,
@@ -87,9 +69,6 @@ class AuthApiController extends Controller
         ]);
     }
 
-    /**
-     * Get the authenticated user.
-     */
     public function me(Request $request): JsonResponse
     {
         return response()->json([
