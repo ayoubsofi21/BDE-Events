@@ -17,7 +17,7 @@ function Login() {
         setLoading(true);
         try {
             await login(email, password);
-            navigate("/events");
+            navigate("/me");
         } catch (error) {
             console.error("Erreur login :", error);
 
