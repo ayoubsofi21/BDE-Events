@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import api from "../services/api";
 
 export const AuthContext = createContext();
@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 function AuthContextProvider({ children }) {
 
     const [user, setUser] = useState(null);
-
+    const [loading,setLoading]=useState(true);
     const [token, setToken] = useState(
         localStorage.getItem("token")
     );
@@ -49,9 +49,26 @@ function AuthContextProvider({ children }) {
         setUser(user);
         setToken(token);
     };
+    const getUser = async () => {
+            try {
+                const response = await api.get("/me", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setUser(response.data.data.user);
+
+            } catch (error) {
+                console.log("Session invalide");
+                localStorage.removeItem("token");
+                setToken(null);
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        };
 
     const logout = async () => {
-
         try {
             await api.post(
                 "/logout",
@@ -67,11 +84,19 @@ function AuthContextProvider({ children }) {
         }
 
         localStorage.removeItem("token");
-
         setToken(null);
         setUser(null);
     };
 
+    useEffect(() => {
+
+        if (token) {
+            getUser();
+        } else {
+            setLoading(false);
+        }
+
+    }, []);
     return (
         <AuthContext.Provider
             value={{
