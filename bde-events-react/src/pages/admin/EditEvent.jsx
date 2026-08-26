@@ -1,22 +1,52 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-
+import api from "../../services/api";
 function EditEvent() {
     const { id } = useParams();
-
-    // Données temporaires pour construire l'interface.
-    // Plus tard, elles viendront de l'API Laravel.
     const [formData, setFormData] = useState({
-        title: "Campus Welcome Party",
-        description:
-            "Une soirée organisée par le BDE pour accueillir les étudiants du campus.",
-        date: "2026-09-15",
-        time: "19:00",
-        location: "Campus ENAA",
-        price: "50",
-        capacity: "150",
+        title: "",
+        description: "",
+        date: "",
+        time: "",
+        location: "",
+        price: "",
+        capacity: "",
         image: "",
     });
+   useEffect(() => {
+
+    const getEvent = async () => {
+
+        try {
+
+            const response = await api.get(`/events/${id}`);
+
+            console.log("API response:", response.data);
+
+            const event = response.data.data;
+
+            setFormData({
+                title: event.title,
+                description: event.description,
+                date: event.date,
+                time: event.time,
+                location: event.location,
+                price: event.price,
+                capacity: event.capacity,
+                image: event.image || "",
+            });
+
+        } catch (error) {
+
+            console.error("Error:", error);
+
+        }
+
+    };
+
+    getEvent();
+
+}, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,7 +56,7 @@ function EditEvent() {
             [name]: value,
         });
     };
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
