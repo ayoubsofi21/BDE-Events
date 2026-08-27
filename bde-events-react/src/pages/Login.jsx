@@ -17,7 +17,7 @@ function Login() {
         setLoading(true);
         try {
             await login(email, password);
-            navigate("/me");
+            navigate("/admin/dashboard");
         } catch (error) {
             console.error("Erreur login :", error);
 
