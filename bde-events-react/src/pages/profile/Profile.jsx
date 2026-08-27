@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-
+import { AuthContext } from "../../context/AuthContext";
 function Profile() {
+    const {user}=useContext(AuthContext);
     return (
         <div className="min-h-screen bg-gray-50">
 
@@ -23,17 +24,10 @@ function Profile() {
 
                 </div>
             </section>
-
-
-            {/* Content */}
             <main className="py-12">
 
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-                    {/* Profile Card */}
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-
-                        {/* Profile Header */}
                         <div className="bg-blue-600 px-6 py-8 md:px-8">
 
                             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
@@ -52,11 +46,11 @@ function Profile() {
                                 <div className="text-center sm:text-left">
 
                                     <h2 className="text-2xl font-bold text-white">
-                                        Ayoub Sofi
+                                        {user.name}
                                     </h2>
 
                                     <p className="mt-1 text-blue-100">
-                                        Étudiant
+                                        {user.role}
                                     </p>
 
                                 </div>
@@ -83,7 +77,7 @@ function Profile() {
                                     </p>
 
                                     <p className="mt-1 font-medium text-gray-900">
-                                        Ayoub Sofi
+                                        {user.name}
                                     </p>
                                 </div>
 
@@ -95,7 +89,7 @@ function Profile() {
                                     </p>
 
                                     <p className="mt-1 font-medium text-gray-900">
-                                        student@example.com
+                                        {user.email}
                                     </p>
                                 </div>
 
@@ -107,7 +101,7 @@ function Profile() {
                                     </p>
 
                                     <p className="mt-1 font-medium text-gray-900">
-                                        Student
+                                        {user.role}
                                     </p>
                                 </div>
 
