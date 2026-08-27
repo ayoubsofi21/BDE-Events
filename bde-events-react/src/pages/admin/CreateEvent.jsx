@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
-
+import {ArrowBigLeft} from "lucide-react";
 function CreateEvent() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -84,9 +84,11 @@ function CreateEvent() {
 
                     <Link
                         to="/admin/events"
-                        className="text-sm text-blue-600 font-medium hover:text-blue-700"
+                        className="text-sm text-blue-600 font-medium hover:text-blue-700 flex"
                     >
-                        ← Retour aux événements
+                                            
+                        <ArrowBigLeft className="mr-2" />retour à la gestion des événements
+                    
                     </Link>
 
                     <h1 className="mt-4 text-3xl font-bold text-gray-900">
@@ -100,7 +102,7 @@ function CreateEvent() {
                 </div>
             </section>
 
-
+            
             {/* Form */}
             <main className="py-10">
 
@@ -126,7 +128,7 @@ function CreateEvent() {
                             <p className="mt-1 text-sm text-gray-500">
                                 Informations principales de l'événement.
                             </p>
-
+                               
 
                             <div className="mt-6 space-y-6">
 

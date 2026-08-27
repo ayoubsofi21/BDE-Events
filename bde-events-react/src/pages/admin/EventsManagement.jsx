@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
+import {ArrowBigLeft} from "lucide-react";
 function EventsManagement() {
   //    const response = api.get("/events").then((response) => {return response.data;});
   const [events, setEvents] = useState([]);
@@ -17,12 +18,19 @@ function EventsManagement() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <section className="bg-white border-b">
+      <section className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <p className="text-blue-600 font-semibold">Administration</p>
-
+              <p className="text-blue-600 font-semiboldc mb-2">Administration</p>
+              <Link
+                                      to="/admin/dashboard"
+                                      className="text-lg text-blue-600 font-medium hover:text-blue-700 flex items-center gap-2"
+                                  >
+                                                          
+                                      <ArrowBigLeft  />retour
+                                  
+                </Link>
               <h1 className="mt-2 text-3xl font-bold text-gray-900">
                 Gestion des événements
               </h1>

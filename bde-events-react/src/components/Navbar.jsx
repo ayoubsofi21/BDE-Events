@@ -35,12 +35,20 @@ function Navbar() {
                         </Link>
 
                         {user ? (
+                            <>
                             <button
                                 onClick={logout}
-                                className="text-gray-700 hover:text-blue-600 font-medium transition"
+                                className="text-gray-700 font-medium transition bg-red-500 px-4 py-2 rounded-lg text-white hover:bg-red-600"
                             >
                                 Logout
                             </button>
+                            <Link
+                                to="/admin/dashboard"
+                                className="text-gray-700  font-medium transition bg-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-600"
+                            >
+                                Dashboard
+                            </Link>
+                            </>
                         ) : (
                             <>
                                 <Link
