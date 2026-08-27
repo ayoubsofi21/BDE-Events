@@ -1,7 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import {Calendar,BookIcon,UsersIcon,DollarSignIcon} from "lucide-react";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
+// import {AuthContext} from "../../context/AuthContext";
 function Dashboard() {
+    const [events,setEvents]=useState([]);
+    const [reservations,setReservations]=useState([]);
+    const [student,setStudent]=useState([]);
+    
+    useEffect(()=>{
+        api.get("/events").then((response)=>{
+            setEvents(response.data.data);
+            console.log("Events Fetched",response.data.data);
+        }).catch((error)=>{
+            console.error("Error fetching events:",error);
+        });
+    },[]);
+   useEffect(() => {
+        const token = localStorage.getItem("token");
+        api.get("/admin/reservations", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((response) => {
+            console.log("Reservations:", response.data.data);
+            setReservations(response.data.data);
+        })
+        .catch((error) => {
+            console.error("Reservations error:", error.response?.data);
+        });
+    }, []);
+    useEffect(()=>{
+        api.get("/admin/users").then((responce)=>{
+            setStudent(responce.data.data);
+            console.log("users here",responce.data.data);
+        }).catch(error=>console.error('erreur :',error))
+    },[])
     return (
         <div className="min-h-screen bg-gray-50">
 
@@ -44,13 +80,13 @@ function Dashboard() {
                                     </p>
 
                                     <p className="mt-2 text-3xl font-bold text-gray-900">
-                                        12
+                                        {events.length}
                                     </p>
                                 </div>
 
                                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                                     <span className="text-xl">
-                                        📅
+                                        <Calendar />
                                     </span>
                                 </div>
 
@@ -74,13 +110,13 @@ function Dashboard() {
                                     </p>
 
                                     <p className="mt-2 text-3xl font-bold text-gray-900">
-                                        248
+                                        {reservations.length}
                                     </p>
                                 </div>
 
                                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                                     <span className="text-xl">
-                                        🎟️
+                                        <BookIcon />
                                     </span>
                                 </div>
 
@@ -104,13 +140,13 @@ function Dashboard() {
                                     </p>
 
                                     <p className="mt-2 text-3xl font-bold text-gray-900">
-                                        520
+                                        {student.length}
                                     </p>
                                 </div>
 
                                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                                     <span className="text-xl">
-                                        👥
+                                        <UsersIcon />
                                     </span>
                                 </div>
 
@@ -134,13 +170,13 @@ function Dashboard() {
                                     </p>
 
                                     <p className="mt-2 text-3xl font-bold text-gray-900">
-                                        12,450 DH
+                                        {events.reduce((total,event)=>(total+Number(event.price)),0)}
                                     </p>
                                 </div>
 
                                 <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                                     <span className="text-xl">
-                                        💰
+                                        <DollarSignIcon />
                                     </span>
                                 </div>
 
@@ -183,68 +219,24 @@ function Dashboard() {
                             </div>
 
 
-                            <div className="divide-y divide-gray-100">
+                        {events.map((e)=>{
+                            return (<div className="divide-y divide-gray-100" key={e.id}>
 
-                                {/* Event 1 */}
-                                <div className="p-6 flex items-center justify-between gap-4">
-
+                                <div className="p-6 flex items-center justify-between gap-4" >
                                     <div>
                                         <h3 className="font-semibold text-gray-900">
-                                            Campus Welcome Party
+                                            {e.title}
                                         </h3>
-
                                         <p className="mt-1 text-sm text-gray-500">
-                                            15 Septembre 2026 · Campus ENAA
+                                            {e.description}
                                         </p>
                                     </div>
-
-                                    <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1.5 rounded-full">
+                                    <span  className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1.5 rounded-full">
                                         Actif
                                     </span>
-
                                 </div>
-
-
-                                {/* Event 2 */}
-                                <div className="p-6 flex items-center justify-between gap-4">
-
-                                    <div>
-                                        <h3 className="font-semibold text-gray-900">
-                                            Tech Conference
-                                        </h3>
-
-                                        <p className="mt-1 text-sm text-gray-500">
-                                            22 Septembre 2026 · Amphithéâtre
-                                        </p>
-                                    </div>
-
-                                    <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1.5 rounded-full">
-                                        Actif
-                                    </span>
-
-                                </div>
-
-
-                                {/* Event 3 */}
-                                <div className="p-6 flex items-center justify-between gap-4">
-
-                                    <div>
-                                        <h3 className="font-semibold text-gray-900">
-                                            Career Day
-                                        </h3>
-
-                                        <p className="mt-1 text-sm text-gray-500">
-                                            5 Octobre 2026 · Salle de conférences
-                                        </p>
-                                    </div>
-
-                                    <span className="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1.5 rounded-full">
-                                        Bientôt
-                                    </span>
-
-                                </div>
-
-                            </div>
+                            </div>)
+                          })}
 
                         </div>
 

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\User;
 use App\Services\BookingService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+
 
 class BookingApiController extends Controller
 {
@@ -62,4 +64,20 @@ class BookingApiController extends Controller
             'data' => $reservations,
         ]);
     }
+   public function showReservations(): JsonResponse
+    {
+        $reservations = $this->bookingService->getAllReservations();
+
+        return response()->json([
+            'success' => true,
+            'data' => $reservations,
+        ]);
+    }
+   public function allusers():JsonResponse{
+        $users=User::where('role', 'student')->get();
+        return response()->json([
+            "success"=>"true",
+            "data"=>$users,
+        ]);
+   }
 }

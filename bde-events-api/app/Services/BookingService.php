@@ -123,4 +123,8 @@ class BookingService
             ->latest()
             ->get();
     }
+    public function getAllReservations()
+    {
+        return Reservation::all();
+    }
 }

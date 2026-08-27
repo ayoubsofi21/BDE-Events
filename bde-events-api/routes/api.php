@@ -27,5 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/events/{event}', [EventApiController::class, 'adminShow']);
         Route::put('/events/{event}', [EventApiController::class, 'update']);
         Route::delete('/events/{event}', [EventApiController::class, 'destroy']);
+        Route::get('/reservations',[BookingApiController::class, 'showReservations']);
+        Route::get('/users',[BookingApiController::class, 'allusers']);
+
     });
 });

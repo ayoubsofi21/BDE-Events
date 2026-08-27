@@ -95,7 +95,7 @@ function EventsManagement() {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b border-gray-100">
-                  <tr>
+                  <tr >
                     <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
                       Événement
                     </th>
@@ -128,7 +128,7 @@ function EventsManagement() {
 
                 <tbody className="divide-y divide-gray-100">
                     {events.map((event)=>
-                    <tr className="hover:bg-gray-50 transition">
+                    <tr className="hover:bg-gray-50 transition" key={event.id}>
                         <td className="px-6 py-5">
                         <p className="font-semibold text-gray-900">
                             {event.title}
