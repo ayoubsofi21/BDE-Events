@@ -7,7 +7,7 @@ function Profile() {
         <div className="min-h-screen bg-gray-50">
 
             {/* Header */}
-            <section className="bg-white border-b">
+            <section className="bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
                     <p className="text-blue-600 font-semibold">
